@@ -1,38 +1,39 @@
-trigger: none
+trigger:
+  - main
 
-# Select your agent pool, where your agents are hosted.
-pool: kubernetes-self-hosted-agent
+pool:
+  vmImage: ubuntu-latest
 
-# Define stages  
-## Stage 1  
+# Define stages
+## Stage 1
 stages:
-- stage: Build
-  displayName: 'Build Stage'
-  ## Job 1.1
-  jobs:
-  - job: BuildJob
-    displayName: 'Build Job'
-    steps:
-    ## Step 1.1
-    - script: echo "Building the application..."
-      displayName: 'Build Application'
-    ## Step 1.2
-    - script: echo "Running tests..."
-      displayName: 'Run Tests'
+  - stage: Build
+    displayName: 'Build Stage'
+    ## Job 1.1
+    jobs:
+      - job: BuildJob
+        displayName: 'Build Job'
+        steps:
+          ## Step 1.1
+          - script: echo "Building the application..."
+            displayName: 'Build Application'
+          ## Step 1.2
+          - script: echo "Running tests..."
+            displayName: 'Run Tests'
 
-## Stage 2
-- stage: DeployTest
-  displayName: 'Deploy & Test Stage'
-  jobs:
-  ## Job 2.1
-  - job: DeployJob
-    displayName: 'Deploy Job'
-    steps:
-    - script: echo "Deploying the application..."
-      displayName: 'Deploy Application'
-  ## Job 2.2
-  - job: TestJob
-    displayName: 'Test Job'
-    steps:
-    - script: echo "Testing the application..."
-      displayName: 'Test Application'
+  ## Stage 2
+  - stage: DeployTest
+    displayName: 'Deploy & Test Stage'
+    jobs:
+      ## Job 2.1
+      - job: DeployJob
+        displayName: 'Deploy Job'
+        steps:
+          - script: echo "Deploying the application..."
+            displayName: 'Deploy Application'
+      ## Job 2.2
+      - job: TestJob
+        displayName: 'Test Job'
+        steps:
+          - script: echo "Testing the application..."
+            displayName: 'Test Application'
